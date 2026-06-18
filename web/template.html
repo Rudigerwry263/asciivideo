@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>__TITLE__</title>
+<style>
+  :root { --grn: #52E06A; --dim: #2E8B4A; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%; background: #000; color: var(--grn);
+    font-family: "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    overflow: hidden;
+  }
+  #app { height: 100%; display: flex; flex-direction: column; align-items: center;
+         justify-content: center; gap: 14px; padding: 14px; }
+  #stage { display: flex; align-items: center; justify-content: center;
+           flex: 1 1 auto; min-height: 0; width: 100%; }
+  .charvid-canvas {
+    max-width: 100%; max-height: 100%; height: auto; width: auto;
+    display: block; border-radius: 6px; cursor: pointer;
+    box-shadow: 0 0 0 1px #111, 0 12px 40px rgba(0,0,0,0.6);
+  }
+  #bar { display: flex; align-items: center; gap: 12px; width: min(680px, 92vw);
+         flex: 0 0 auto; user-select: none; font-size: 13px; }
+  #bar button {
+    background: #0c0c0c; color: var(--grn); border: 1px solid var(--dim);
+    border-radius: 5px; padding: 6px 10px; cursor: pointer; font: inherit;
+    min-width: 40px;
+  }
+  #bar button:hover { background: #14241a; }
+  #seek { -webkit-appearance: none; appearance: none; flex: 1 1 auto; height: 5px;
+          background: #1c1c1c; border-radius: 3px; outline: none; cursor: pointer; }
+  #seek::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px;
+          border-radius: 50%; background: var(--grn); box-shadow: 0 0 8px var(--grn); }
+  #seek::-moz-range-thumb { width: 13px; height: 13px; border: none;
+          border-radius: 50%; background: var(--grn); box-shadow: 0 0 8px var(--grn); }
+  #time { font-variant-numeric: tabular-nums; color: #9aa; min-width: 86px;
+          text-align: right; }
+  #loopWrap { display: flex; align-items: center; gap: 5px; color: #9aa; cursor: pointer; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stage"></div>
+  <div id="bar">
+    <button id="play" title="播放/暂停 (空格)">⏸</button>
+    <button id="replay" title="重播">⟲</button>
+    <input id="seek" type="range" min="0" max="1000" value="0" />
+    <span id="time">00.0 / 00.0</span>
+    <label id="loopWrap"><input id="loop" type="checkbox" checked /> loop</label>
+  </div>
+</div>
+<script>
+/*__CHARVID_JS__*/
+</script>
+<script>
+(function () {
+  var SPEC = "__SPEC__";
+  var OPTS = "__OPTS__";
+  var player = Charvid.play(SPEC, OPTS, "#stage");
+  window.charvidPlayer = player;
+
+  var playBtn = document.getElementById("play");
+  var replayBtn = document.getElementById("replay");
+  var seek = document.getElementById("seek");
+  var timeEl = document.getElementById("time");
+  var loopBox = document.getElementById("loop");
+  var seeking = false;
+
+  function fmt(s) { return (Math.floor(s * 10) / 10).toFixed(1).padStart(4, "0"); }
+
+  player.onframe = function (t, total, playing) {
+    if (!seeking) seek.value = Math.round((t / total) * 1000);
+    timeEl.textContent = fmt(t) + " / " + fmt(total);
+    playBtn.textContent = playing ? "⏸" : "▶";
+  };
+  playBtn.onclick = function () { player.toggle(); };
+  replayBtn.onclick = function () { player.replay(); };
+  loopBox.onchange = function () { player.loop = loopBox.checked; };
+  seek.addEventListener("input", function () {
+    seeking = true; player.pause();
+    player.seek((seek.value / 1000) * player.total);
+  });
+  seek.addEventListener("change", function () { seeking = false; });
+  player.view.addEventListener("click", function () { player.replay(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.code === "Space") { e.preventDefault(); player.toggle(); }
+    else if (e.key === "r" || e.key === "R") player.replay();
+  });
+})();
+</script>
+</body>
+</html>

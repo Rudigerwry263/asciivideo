@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated render outputs (regenerate with the example scripts)
+*.mp4
+*.mov
+frames/
+examples/*.html
+examples/*.png
+/tmp/
+
+# Keep committed demo + doc assets
+!docs/**
+!reference/gallery.png
